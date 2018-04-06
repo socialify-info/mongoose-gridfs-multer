@@ -48,7 +48,7 @@ _.assign(Storage.prototype, {
           "filename": filename,
           "contentType": file.mimetype
         },
-        req,
+        file.stream,
         function(err, savedFile) {
           if(err){
             return cb(err);
