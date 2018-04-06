@@ -29,13 +29,18 @@ _.assign(Storage.prototype, {
     let fn = _.get(this,"options.filename", getFilename);
     fn(req, file, cb)
   },
+  _getMetadata: function _getFileName(req, file, cb) {
+    let fn = _.get(this,"options.metadata", getMetadata);
+    fn(req, file, cb)
+  },
   _handleFile: function _handleFile(req, file, cb) {
     const Attachment = this.gridfs.model;
+    var that = this;
     this._getFileName(req,file,function(err, filename){
       if(err) {
         return cb(err);
       }
-      this._getMetadata(req, file, function(err, metadata){
+      that._getMetadata(req, file, function(err, metadata){
         if(err) {
           return cb(err);
         }
